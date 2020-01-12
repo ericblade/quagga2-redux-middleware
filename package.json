@@ -1,0 +1,23 @@
+{
+  "name": "@ericblade/quagga2-redux-middleware",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./lib/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eric Blade",
+  "license": "MIT",
+  "devDependencies": {
+    "@ericblade/quagga2": "0.0.14",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.4",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "redux": "^4.0.5",
+    "ts-action": "^11.0.0"
+  }
+}
