@@ -1,6 +1,11 @@
 import Quagga from '@ericblade/quagga2';
-import { MiddlewareAPI, Dispatch, Middleware, AnyAction } from 'redux';
-import { action, payload } from 'ts-action';
+import {
+    MiddlewareAPI,
+    Dispatch,
+    Middleware,
+    AnyAction,
+} from 'redux';
+import { action as createAction, payload as withPayload } from 'ts-action';
 
 export const Actions = {
     RECEIVE_VIDEO_DEVICES: 'RECEIVE_VIDEO_DEVICES',
@@ -9,15 +14,20 @@ export const Actions = {
 
 export type VideoDevices = Array<MediaDeviceInfo>;
 
-export const receiveVideoDevices = action(Actions.RECEIVE_VIDEO_DEVICES, payload<VideoDevices>());
-export const enumerateVideoDevices = action(Actions.ENUMERATE_VIDEO_DEVICES);
+export const receiveVideoDevices = createAction(
+    Actions.RECEIVE_VIDEO_DEVICES,
+    withPayload<VideoDevices>(),
+);
+export const enumerateVideoDevices = createAction(Actions.ENUMERATE_VIDEO_DEVICES);
 
-function doCameraEnumeration(dispatch: Dispatch) {
+async function doCameraEnumeration(dispatch: Dispatch) {
     const { CameraAccess } = Quagga;
-    CameraAccess.enumerateVideoDevices().then((devices) => dispatch(receiveVideoDevices(devices)));
+    const videoDevices = await CameraAccess.enumerateVideoDevices();
+    dispatch(receiveVideoDevices(videoDevices));
 }
 
-const QuaggaMiddleware: Middleware<Dispatch> = ({ dispatch }: MiddlewareAPI) => (next) => async (action: AnyAction) => {
+// eslint-disable-next-line max-len
+const middleware: Middleware<Dispatch> = ({ dispatch }: MiddlewareAPI) => (next) => async (action: AnyAction) => {
     switch (action.type) {
         case Actions.ENUMERATE_VIDEO_DEVICES:
             doCameraEnumeration(dispatch);
@@ -27,6 +37,6 @@ const QuaggaMiddleware: Middleware<Dispatch> = ({ dispatch }: MiddlewareAPI) => 
             next(action);
             break;
     }
-}
+};
 
-export default QuaggaMiddleware;
+export default middleware;
