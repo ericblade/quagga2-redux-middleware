@@ -1,27 +1,30 @@
 {
   "name": "@ericblade/quagga2-redux-middleware",
-  "version": "1.0.1",
-  "description": "",
+  "version": "1.0.2",
+  "description": "Redux Middleware to make it easier to use @ericblade/quagga2",
   "main": "./lib/index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "peerDependencies": {
+    "@ericblade/quagga2": ">0.0.10"
+  },
   "author": "Eric Blade",
   "license": "MIT",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.15.0",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
     "eslint": "^6.8.0",
-    "eslint-config-airbnb-typescript": "^6.3.1",
-    "eslint-plugin-import": "^2.20.0",
+    "eslint-config-airbnb-typescript": "^7.2.1",
+    "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.17.0",
-    "eslint-plugin-react-hooks": "^1.7.0",
-    "typescript": "^3.7.4"
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^4.0.0",
+    "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@ericblade/quagga2": "^0.0.14",
+    "@ericblade/quagga2": "^1.0.2",
     "redux": "^4.0.5",
     "ts-action": "^11.0.0"
   }
