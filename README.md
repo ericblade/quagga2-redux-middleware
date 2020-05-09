@@ -28,10 +28,11 @@ store.js:
 
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import QuaggaMiddleware from '@ericblade/quagga2-redux-middleware';
-const createStoreWithMiddleware = applyMiddleware([QuaggaMiddleware])(createStore);
 ... import / create all your reducers ...
 const rootReducer = combineReducers({ uiReducer, dataReducer, settingsReducer }); // names here are just samples
-export default createStoreWithMiddleware(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(rootReducer, applyMiddleware(QuaggaMiddleware));
+export store;
+
 ````
 
 ### Dispatching a request for video device information
@@ -68,7 +69,7 @@ export default uiReducer;
 ````
 
 Your reducer will receive an array of
-[MediaDeviceInfo](https://developer.mozilla.org/en-US/docs/Web/API/MediaDeviceInfo) objects.
+[MediaDeviceInfo](https://developer.mozilla.org/en-US/docs/Web/API/MediaDeviceInfo) objects, which is exported as type VideoDevices in this library.
 
 In my project, I have a user-interface that allows the user to select a camera device based on it's
 label, and then that passes the associated deviceId to Quagga2's init() function, as well as storing

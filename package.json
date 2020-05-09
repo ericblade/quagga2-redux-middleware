@@ -1,12 +1,14 @@
 {
   "name": "@ericblade/quagga2-redux-middleware",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Redux Middleware to make it easier to use @ericblade/quagga2",
   "main": "./lib/index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
     "prepublishOnly": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run cypress:run"
   },
   "peerDependencies": {
     "@ericblade/quagga2": ">0.0.10"
@@ -25,6 +27,7 @@
   },
   "dependencies": {
     "@ericblade/quagga2": "^1.0.2",
+    "cypress": "^4.5.0",
     "redux": "^4.0.5",
     "ts-action": "^11.0.0"
   }
