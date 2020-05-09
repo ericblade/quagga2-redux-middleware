@@ -9,3 +9,5 @@ test/
 .editorconfig
 tsconfig.json
 src/
+.eslintrc.json
+*.tgz
