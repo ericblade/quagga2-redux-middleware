@@ -4,7 +4,8 @@ npm-shrinkwrap.json
 .tscache/
 lib/**/*.ts
 !lib/**/*.d.ts
-test/
+cypress/
+cypress.json
 .gitignore
 .editorconfig
 tsconfig.json
