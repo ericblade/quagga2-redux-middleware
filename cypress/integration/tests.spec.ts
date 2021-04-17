@@ -1,10 +1,10 @@
 import QuaggaMiddleware, { enumerateVideoDevices, Actions } from '../../lib/index';
+import { expect } from 'chai';
+import { createStore, applyMiddleware } from 'redux';
 
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-
-let enumerateDone;
-let receiveDone;
-let receiveTestDone;
+let enumerateDone: undefined | Mocha.Done;
+let receiveDone: undefined | Mocha.Done;
+let receiveTestDone: undefined | Mocha.Done;
 
 const reducer = (state, action) => {
     switch(action.type) {

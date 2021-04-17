@@ -18,6 +18,7 @@
         "strictNullChecks": true,
         "module": "commonjs",
         "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "types": ["mocha", "chai"]
     }
 }
