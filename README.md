@@ -61,7 +61,7 @@ application, in this case it's my "uiReducer".  The section responsible for stor
 looks like:
 
 ````javascript
-import { Actions as CameraActions } from '@ericblade/quagga2-redux-middleware';
+import { ActionTypes as CameraActions } from '@ericblade/quagga2-redux-middleware';
 ...
 const uiReducer = (state = initialUiState, action) => {
     switch (action.type) {
@@ -72,6 +72,14 @@ const uiReducer = (state = initialUiState, action) => {
 };
 
 export default uiReducer;
+````
+
+or with redux-toolkit:
+
+````javascript
+const reducer = createReducer(initialUiState, builder => {
+    builder.addCase(receiveVideoDevices, (state, { payload }) => { state.cameraList = payload; })
+});
 ````
 
 Your reducer will receive an array of
@@ -89,7 +97,7 @@ const dispatch = useDispatch();
 dispatch(requestCameraPermission());
 ````
 
-You should receive back a cameraPermissionSuccessful action or a cameraNoPermission action.
+You should eventually receive back a cameraPermissionSuccessful action or a cameraNoPermission action.
 If no camera capabilities are available, this may return cameraNoPermission, so you probably want
 to check that first.
 

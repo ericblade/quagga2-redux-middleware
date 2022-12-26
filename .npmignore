@@ -13,3 +13,5 @@ node_modules/
 npm-shrinkwrap.json
 src/
 tsconfig.json
+cypress.config.js
+cypress.config.ts

@@ -37,6 +37,7 @@ async function doCameraPermissionRequest(dispatch: Dispatch) {
     try {
         await CameraAccess.request(null, {});
         await CameraAccess.release();
+        dispatch(cameraPermissionSuccessful());
     } catch (e) {
         dispatch(cameraNoPermission());
     }
