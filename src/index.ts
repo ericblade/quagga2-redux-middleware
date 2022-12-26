@@ -1,24 +1,30 @@
 import Quagga from '@ericblade/quagga2';
 import {
-    MiddlewareAPI,
+    AnyAction,
     Dispatch,
     Middleware,
-    AnyAction,
+    MiddlewareAPI
 } from 'redux';
 import { action as createAction, payload as withPayload } from 'ts-action';
 
-export const Actions = {
-    RECEIVE_VIDEO_DEVICES: 'RECEIVE_VIDEO_DEVICES',
-    ENUMERATE_VIDEO_DEVICES: 'ENUMERATE_VIDEO_DEVICES',
+export const ActionTypes = {
+    CAMERA_NO_PERMISSION: '@quagga2/cameraNoPermission',
+    CAMERA_PERMISSION_SUCCESSFUL: '@quagga2/cameraPermissionSuccessful',
+    ENUMERATE_VIDEO_DEVICES: '@quagga2/enumerateVideoDevices',
+    RECEIVE_VIDEO_DEVICES: '@quagga2/receiveVideoDevices',
+    REQUEST_PERMISSION: '@quagga2/requestCameraPermission',
 } as const;
 
 export type VideoDevices = Array<MediaDeviceInfo>;
 
 export const receiveVideoDevices = createAction(
-    Actions.RECEIVE_VIDEO_DEVICES,
+    ActionTypes.RECEIVE_VIDEO_DEVICES,
     withPayload<VideoDevices>(),
 );
-export const enumerateVideoDevices = createAction(Actions.ENUMERATE_VIDEO_DEVICES);
+export const enumerateVideoDevices = createAction(ActionTypes.ENUMERATE_VIDEO_DEVICES);
+export const requestCameraPermission = createAction(ActionTypes.REQUEST_PERMISSION);
+export const cameraNoPermission = createAction(ActionTypes.CAMERA_NO_PERMISSION);
+export const cameraPermissionSuccessful = createAction(ActionTypes.CAMERA_PERMISSION_SUCCESSFUL);
 
 async function doCameraEnumeration(dispatch: Dispatch) {
     const { CameraAccess } = Quagga;
@@ -26,17 +32,29 @@ async function doCameraEnumeration(dispatch: Dispatch) {
     dispatch(receiveVideoDevices(videoDevices));
 }
 
+async function doCameraPermissionRequest(dispatch: Dispatch) {
+    const { CameraAccess } = Quagga;
+    try {
+        await CameraAccess.request(null, {});
+        await CameraAccess.release();
+    } catch (e) {
+        dispatch(cameraNoPermission());
+    }
+}
+
 // eslint-disable-next-line max-len
 const middleware: Middleware<Dispatch> = ({ dispatch }: MiddlewareAPI) => (next) => async (action: AnyAction) => {
     switch (action.type) {
-        case Actions.ENUMERATE_VIDEO_DEVICES:
+        case ActionTypes.REQUEST_PERMISSION:
+            doCameraPermissionRequest(dispatch);
+            break;
+        case ActionTypes.ENUMERATE_VIDEO_DEVICES:
             doCameraEnumeration(dispatch);
-            next(action);
             break;
         default:
-            next(action);
             break;
     }
+    next(action);
 };
 
 export default middleware;
