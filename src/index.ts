@@ -3,9 +3,9 @@ import {
     AnyAction,
     Dispatch,
     Middleware,
-    MiddlewareAPI
+    MiddlewareAPI,
 } from 'redux';
-import { action as createAction, payload as withPayload } from 'ts-action';
+import { createAction } from '@reduxjs/toolkit';
 
 export const ActionTypes = {
     CAMERA_NO_PERMISSION: '@quagga2/cameraNoPermission',
@@ -15,12 +15,7 @@ export const ActionTypes = {
     REQUEST_PERMISSION: '@quagga2/requestCameraPermission',
 } as const;
 
-export type VideoDevices = Array<MediaDeviceInfo>;
-
-export const receiveVideoDevices = createAction(
-    ActionTypes.RECEIVE_VIDEO_DEVICES,
-    withPayload<VideoDevices>(),
-);
+export const receiveVideoDevices = createAction<MediaDeviceInfo[]>(ActionTypes.RECEIVE_VIDEO_DEVICES);
 export const enumerateVideoDevices = createAction(ActionTypes.ENUMERATE_VIDEO_DEVICES);
 export const requestCameraPermission = createAction(ActionTypes.REQUEST_PERMISSION);
 export const cameraNoPermission = createAction(ActionTypes.CAMERA_NO_PERMISSION);

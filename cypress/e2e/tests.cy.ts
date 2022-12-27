@@ -34,7 +34,7 @@ const reducer = (state, action) => {
 const store = createStore(reducer, applyMiddleware(QuaggaMiddleware));
 
 it('enumerateVideoDevices returns an action that equals Actions.ENUMERATE_VIDEO_DEVICES', () => {
-    expect(enumerateVideoDevices()).to.deep.equal({ type: ActionTypes.ENUMERATE_VIDEO_DEVICES });
+    expect(enumerateVideoDevices()).to.deep.equal({ type: ActionTypes.ENUMERATE_VIDEO_DEVICES, payload: undefined });
 });
 
 it('enumerateVideoDevices dispatches Actions.ENUMERATE_VIDEO_DEVICES', (done) => {
