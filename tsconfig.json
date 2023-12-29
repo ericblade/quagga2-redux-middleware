@@ -19,6 +19,10 @@
         "module": "commonjs",
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
-        "types": ["mocha", "chai"]
+        "types": [
+            "mocha",
+            "chai",
+            "node"
+        ]
     }
 }

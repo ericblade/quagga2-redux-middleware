@@ -1,9 +1,7 @@
 import Quagga from '@ericblade/quagga2';
 import {
-    AnyAction,
     Dispatch,
     Middleware,
-    MiddlewareAPI,
 } from 'redux';
 import { createAction } from '@reduxjs/toolkit';
 
@@ -38,14 +36,21 @@ async function doCameraPermissionRequest(dispatch: Dispatch) {
     }
 }
 
-// eslint-disable-next-line max-len
-const middleware: Middleware<Dispatch> = ({ dispatch }: MiddlewareAPI) => (next) => async (action: AnyAction) => {
-    switch (action.type) {
-        case ActionTypes.REQUEST_PERMISSION:
-            doCameraPermissionRequest(dispatch);
+function isRequestPermissionAction(action: any): action is { type: typeof ActionTypes.REQUEST_PERMISSION } {
+    return action.type === ActionTypes.REQUEST_PERMISSION;
+}
+
+function isEnumerateVideoDevicesAction(action: any): action is { type: typeof ActionTypes.ENUMERATE_VIDEO_DEVICES } {
+    return action.type === ActionTypes.ENUMERATE_VIDEO_DEVICES;
+}
+
+const middleware: Middleware = api => next => action => {
+    switch (true) {
+        case isRequestPermissionAction(action):
+            doCameraPermissionRequest(api.dispatch);
             break;
-        case ActionTypes.ENUMERATE_VIDEO_DEVICES:
-            doCameraEnumeration(dispatch);
+        case isEnumerateVideoDevicesAction(action):
+            doCameraEnumeration(api.dispatch);
             break;
         default:
             break;
