@@ -5,18 +5,19 @@
         "types/**/*"
     ],
     "compilerOptions": {
-        "target": "es2015",
+        "target": "ES6",
         "lib": [
             "esnext",
             "dom"
         ],
+        "moduleResolution": "Node",
         "declaration": true,
         "outDir": "./lib/",
         "rootDir": "./src/",
         "strict": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
-        "module": "commonjs",
+        "module": "ESNext",
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "types": [

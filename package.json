@@ -1,6 +1,6 @@
 {
   "name": "@ericblade/quagga2-redux-middleware",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Redux Middleware to make it easier to use @ericblade/quagga2",
   "main": "./lib/index.js",
   "scripts": {
