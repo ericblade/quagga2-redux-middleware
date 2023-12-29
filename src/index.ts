@@ -1,5 +1,5 @@
 import Quagga from '@ericblade/quagga2';
-import {
+import type {
     Dispatch,
     Middleware,
 } from 'redux';
